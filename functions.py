@@ -177,7 +177,7 @@ def is_password_expired(cursor, userName):
 
 def checkByDictionary(password, filepath):
     try:
-        with open(filepath, 'r') as file:
+        with open(filepath, 'r', encoding="utf-8") as file:
             for line in file:
                 common_password = line.strip() 
                 if password in common_password:

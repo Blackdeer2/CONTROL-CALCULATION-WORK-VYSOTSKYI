@@ -1,8 +1,12 @@
 import conector_to_db
 import functions
-
+from UI.flet_interface import singUp
+import flet as ft
 
 def main():
+
+    
+
     # Отримання з'єднання з базою даних
     connection = conector_to_db.get_connection()
     
@@ -13,39 +17,42 @@ def main():
     # Створення курсора для виконання SQL запитів
     cursor = connection.cursor()
 
-    cursor.execute("SELECT * FROM User")
-    result = cursor.fetchall()
 
-    for row in result:
-        print(row)
-
+    
 
     try:
-        while True:
-            print("\nMenu:")
-            print("1. Create Account")
-            print("2. Login")
-            print("0. Exit")
+
+        ft.app(target=lambda page: singUp(page, cursor))
+        cursor.execute("SELECT * FROM User")
+        result = cursor.fetchall()
+
+        for row in result:
+            print(row)
+        # while True:
+        #     print("\nMenu:")
+        #     print("1. Create Account")
+        #     print("2. Login")
+        #     print("0. Exit")
             
-            choice = input("Choose an option (1, 2, or 0): ")
+        #     choice = input("Choose an option (1, 2, or 0): ")
 
-            if choice == '1':
-                userName, password = functions.inputUser(cursor)
-                if userName and password:
-                    functions.create_user(cursor, userName, password)
-                    connection.commit()
-            elif choice == '2':
-                userName = functions.login(cursor)
-                functions.is_password_expired(cursor, userName)
-                if userName is not None:
-                    functions.logmenu(cursor, userName)
-                    connection.commit()
+        #     if choice == '1':
+        #         userName, password = functions.inputUser(cursor)
+        #         if userName and password:
+        #             functions.create_user(cursor, userName, password)
+        #             connection.commit()
+        #     elif choice == '2':
+        #         userName = functions.login(cursor)
+        #         functions.is_password_expired(cursor, userName)
+        #         if userName is not None:
+        #             functions.logmenu(cursor, userName)
+        #             connection.commit()
 
-            elif choice == '0':
-                print("Exiting the program.")
-                break
-            else:
-                print("Invalid choice. Please try again.")
+        #     elif choice == '0':
+        #         print("Exiting the program.")
+        #         break
+        #     else:
+        #         print("Invalid choice. Please try again.")
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:
@@ -56,4 +63,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+   main()
