@@ -1,6 +1,6 @@
 import flet as ft
 import hashlib
-import functions
+import BILL.functions as functions
 
 # Example function for handling sign-up logic
 def handle_signup(cursor, user_name: str, password: str):
@@ -21,6 +21,7 @@ def singUp(page: ft.Page, cursor):
     user_name_field = ft.TextField(keyboard_type=ft.KeyboardType.TEXT)
     password_field = ft.TextField(keyboard_type=ft.KeyboardType.TEXT, password=True)  # password=True hides the input
     confirm_button = ft.FilledButton(content=ft.Text("Confirm"))
+    login_button = ft.FilledButton(content=ft.Text("Log in"))
 
     # Define what happens when the confirm button is clicked
     def on_confirm_click(e):
@@ -41,6 +42,7 @@ def singUp(page: ft.Page, cursor):
                     ft.Text("Password:"),
                     password_field,
                     confirm_button,
+                    login_button
                 ],
                 alignment=ft.MainAxisAlignment.CENTER,
                 horizontal_alignment=ft.CrossAxisAlignment.CENTER
