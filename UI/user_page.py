@@ -6,6 +6,14 @@ def check_password(page, cursor, user_name: str, new_password: str):
     if not new_password:
         close_banner_pop.show_error_banner(page, "Password are required.")
         return
+    check_by_time =functions.can_change_password(cursor, user_name)
+    if check_by_time == False:
+        close_banner_pop.show_error_banner(page, "You can change your password only once a day.")
+        return
+    check_by_time = functions.is_password_expired(cursor, user_name)
+    if check_by_time == True:
+        close_banner_pop.show_error_banner(page, "Password has expired. Please change your password.")
+        return
     result = functions.createNewPassword(cursor,user_name, new_password)
     if result == "New password must not match any of the previous passwords.":
         close_banner_pop.show_error_banner(page, result)
