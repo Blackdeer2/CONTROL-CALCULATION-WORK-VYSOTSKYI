@@ -105,6 +105,20 @@ def getPasswordsByUserName(cursor, name):
     result = cursor.fetchall()
     return result
 
+def check_unique_username(cursor, name):
+    query = """
+        SELECT COUNT(*)
+        FROM User u
+        WHERE u.Name = %s
+    """
+    cursor.execute(query, (name,))
+    result = cursor.fetchone()
+
+    if result and result[0] == 0:
+        return True
+    else:
+        return False
+        
 def can_change_password(cursor, userName):
     cursor.execute("SELECT PasswordCreationDate FROM User WHERE Name = %s", (userName,))
     result = cursor.fetchone()

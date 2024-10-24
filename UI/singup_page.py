@@ -6,6 +6,11 @@ def handle_signup(page,cursor, user_name: str, password: str):
     if not user_name or not password:
         close_banner_pop.show_error_banner(page, "User name and password are required.")
         return
+    
+    if  functions.check_unique_username(cursor, user_name) is False:
+        close_banner_pop.show_error_banner(page, "User already exists.")
+        return
+    
     result = functions.create_user(cursor, user_name, password)
     return result
 
