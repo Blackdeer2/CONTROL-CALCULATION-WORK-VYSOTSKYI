@@ -13,12 +13,6 @@ def main():
 
     try:
         ft.app(lambda page: main_UI(page, cursor))
-        cursor.execute("SELECT * FROM User")
-        result = cursor.fetchall()
-
-        for row in result:
-            print(row)
-
     except Exception as e:
         print(f"An error occurred: {e}")
     finally:

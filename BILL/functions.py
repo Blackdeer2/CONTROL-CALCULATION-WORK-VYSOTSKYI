@@ -3,7 +3,7 @@ import hashlib
 import uuid
 
 MIN_PASSWORD_AGE_DAYS = 1
-MAX_PASSWORD_AGE_DAYS = 10
+MAX_PASSWORD_AGE_DAYS = 30
 
 def login(cursor, user_name, password):
     
@@ -63,10 +63,6 @@ def createNewPassword(cursor, userName, newPassword):
         return "Password updated successfully."
     except Exception as e:
         print(f"An error occurred while updating the password: {e}")
-
-def user_exists(cursor, name):
-    cursor.execute("SELECT COUNT(*) FROM User WHERE Name = %s", (name,))
-    return cursor.fetchone()[0] > 0
 
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
