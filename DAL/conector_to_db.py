@@ -4,8 +4,8 @@ def get_connection():
     try:
         connection = connect(
             host="localhost",
-            user="root",
-            password="1717",
+            user="----",
+            password="----",
             database="UserPasswordDb",
         )
         if connection.is_connected():
